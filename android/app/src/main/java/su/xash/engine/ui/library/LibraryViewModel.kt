@@ -37,7 +37,7 @@ class LibraryViewModel(application: Application) : AndroidViewModel(application)
 		viewModelScope.launch {
 			withContext(Dispatchers.IO) {
 				val rootPath = appPreferences.getString("game_path", null)
-					?: (Environment.getExternalStorageDirectory().absolutePath + "/xash")
+					?: File(ctx.filesDir, "xash").absolutePath
 				val root = File(rootPath)
 
 				Nomedia.ensureNomedia(root)
