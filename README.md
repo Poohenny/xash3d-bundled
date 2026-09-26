@@ -1,7 +1,5 @@
 # Xash3D FWGS Engine, but you can bundle games in the APK! <img align="right" width="128" height="128" src="https://github.com/FWGS/xash3d-fwgs/raw/master/game_launch/icon-xash-material.png" alt="Xash3D FWGS icon" />
 
-Xash3D FWGS is a game engine, aimed to provide compatibility with Half-Life Engine and extend it, as well as to give game developers well known workflow.
-
 ## Fork features
 * Games can be built in to the APK.
 * This allows for an easy, one-click install!
