@@ -1,4 +1,4 @@
-# Xash3D FWGS Engine, but you can bundle games in the APK! <img align="right" width="128" height="128" src="https://github.com/FWGS/xash3d-fwgs/raw/master/game_launch/icon-xash-material.png" alt="Xash3D FWGS icon" />
+# Xash3D Bundled!
 
 ## Fork features
 * Games can be built in to the APK.
