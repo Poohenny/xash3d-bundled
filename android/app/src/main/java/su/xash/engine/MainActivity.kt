@@ -25,14 +25,45 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
+	private val TAG = "MainActivity"
 	private lateinit var binding: ActivityMainBinding
 	private lateinit var appBarConfiguration: AppBarConfiguration
 	private lateinit var navController: NavController
 
+private fun copyAssets(assetPath: String, output: File) {
+    try {
+        val entries = assets.list(assetPath) ?: emptyArray()
+
+        if (entries.isEmpty()) {
+            output.parentFile?.mkdirs()
+
+            assets.open(assetPath).use { input ->
+                output.outputStream().use { out ->
+                    input.copyTo(out)
+                }
+            }
+            return
+        }
+
+        output.mkdirs()
+
+        for (entry in entries) {
+            copyAssets("$assetPath/$entry", File(output, entry))
+        }
+    } catch (e: Exception) {
+        Log.e(TAG, "Failed to copy asset: $assetPath", e)
+    }
+}
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		val xashDir = File(filesDir, "xash")		
+		if (!File(xashDir, "valve").exists()) {
+			copyAssets("xash", xashDir)
+		}		
 
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
@@ -48,7 +79,6 @@ class MainActivity : AppCompatActivity() {
 		CrashReports.prune(this)
 		showPendingCrashReport()
 
-		checkForEngineUpdate()
 	}
 
 	private fun checkForEngineUpdate() {
