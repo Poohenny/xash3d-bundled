@@ -18,6 +18,8 @@ import su.xash.engine.util.CrashReports;
 import su.xash.engine.util.SoftKeyboardPan;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -162,7 +164,6 @@ public class XashActivity extends SDLActivity {
 		CrashReports.writeIntentInfo(this, sb.toString());
 	}
 
-	// TODO: REMOVE LATER, temporary launchers support?
 	@Override
 	protected String[] getArguments() {
 		File crashDir = new File(getFilesDir(), "crashes");
@@ -193,7 +194,7 @@ public class XashActivity extends SDLActivity {
 		if (basedir != null) {
 			nativeSetenv("XASH3D_BASEDIR", basedir);
 		} else {
-			String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/xash";
+			String rootPath = new File(getFilesDir(), "xash").getAbsolutePath();
 			nativeSetenv("XASH3D_BASEDIR", rootPath);
 		}
 
